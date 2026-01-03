@@ -45,8 +45,11 @@ def get_config(key):
 
     if key == 'api_key':
         # If not specified in the configuration, try to load from keyring
-        import keyring
-        return keyring.get_password('fish-ai', active_section)
+        try:
+            import keyring
+            return keyring.get_password('fish-ai', active_section)
+        except (ImportError, Exception):
+            return None
 
     return None
 
