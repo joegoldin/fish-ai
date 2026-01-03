@@ -153,10 +153,8 @@ end
 function _fish_ai_get_installation_url
     set -f plugin (fisher list "fish-ai")
     if test "$plugin" = ""
-        # fish-ai may be installed from an unknown source, assume
-        # that the Python packages can be installed from the
-        # current working directory.
-        echo -n (pwd)
+        # Install from GitHub
+        echo -n "fish-ai@git+https://github.com/$plugin"
     else if test (string sub --start 1 --length 1 "$plugin") = /
         # Install from a local folder (most likely a git clone)
         echo -n "$plugin"
