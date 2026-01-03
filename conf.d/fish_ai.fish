@@ -151,16 +151,14 @@ function _fish_ai_set_python_version
 end
 
 function _fish_ai_get_installation_url
-    set -f plugin (fisher list "fish-ai")
-    if test "$plugin" = ""
-        # Install from GitHub
+    set -f plugin (command -q fisher && fisher list "fish-ai")
+    
+    if string match -q '/*' "$plugin"
+        echo -n "$plugin"  # Local folder
+    else if test -n "$plugin"
         echo -n "fish-ai@git+https://github.com/$plugin"
-    else if test (string sub --start 1 --length 1 "$plugin") = /
-        # Install from a local folder (most likely a git clone)
-        echo -n "$plugin"
     else
-        # Install from GitHub
-        echo -n "fish-ai@git+https://github.com/$plugin"
+        echo -n "fish-ai@git+https://github.com/joegoldin/fish-ai"  # Fallback
     end
 end
 
