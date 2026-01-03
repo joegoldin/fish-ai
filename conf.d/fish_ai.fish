@@ -53,7 +53,7 @@ function _fish_ai_install --on-event fish_ai_install
     _fish_ai_set_python_version
     if type -q uv
         echo "🥡 Setting up a virtual environment using uv..."
-        uv venv --quiet --seed --python $_fish_ai_python_version "$_fish_ai_install_dir"
+        uv venv --clear --quiet --seed --python $_fish_ai_python_version "$_fish_ai_install_dir"
     else
         echo "🥡 Setting up a virtual environment using venv..."
         python$_fish_ai_python_version -m venv "$_fish_ai_install_dir"
