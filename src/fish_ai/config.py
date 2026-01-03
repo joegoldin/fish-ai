@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from os import path
+import os
 import sys
 from configparser import ConfigParser
-import os
+from os import path
+
+from keyring.errors import NoKeyringError
 
 
 def get_config_path():
@@ -48,7 +50,7 @@ def get_config(key):
         try:
             import keyring
             return keyring.get_password('fish-ai', active_section)
-        except (ImportError, Exception):
+        except (NoKeyringError, ImportError, Exception):
             return None
 
     return None
